@@ -40,8 +40,9 @@ public class Main {
 
                 secondSeq.add(new Lemming(tribe, power));
             }
+            // processes the algorithm
+            int[] output = lms.processGame(firstSeq, secondSeq);
 
-            int[] output = lms.processGame();
             System.out.println(output[0] + " " + output[1]);
         }
     }
