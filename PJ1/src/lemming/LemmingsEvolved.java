@@ -18,6 +18,7 @@ public class LemmingsEvolved {
         int rows = secondSeqSize + 1;
         int cols = firstSeqSize + 1;
 
+        // BASE CASE
         // if there is a null sequence, return {0, 0}
         if (rows == 1 || cols == 1)
             return new int[]{0, 0};
@@ -33,6 +34,7 @@ public class LemmingsEvolved {
         Map<Integer, Integer> pairs = new HashMap<>(mapSize);
         pairs.put(0, 0);
 
+        // GENERAL CASE
         for (int i = 1; i < rows; i++) {
             for (int j = 1; j < cols; j++) {
                 Lemming l1 = firstSeqTmp.get(j - 1);
