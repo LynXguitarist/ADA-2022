@@ -1,5 +1,6 @@
 package lemming;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,32 +11,32 @@ public class LemmingsEvolved {
 
     }
 
-    public int[] processGame(List<Lemming> firstSeq, List<Lemming> secondSeq) {
-        int rows = secondSeq.size() + 1;
-        int cols = firstSeq.size() + 1;
+    public int[] processGame(List<Lemming> firstSeq, List<Lemming> secondSeq, int firstSeqSize, int secondSeqSize) {
+        List<Lemming> firstSeqTmp = new ArrayList<>(firstSeq);
+        List<Lemming> secondSeqTmp = new ArrayList<>(secondSeq);
+
+        int rows = secondSeqSize + 1;
+        int cols = firstSeqSize + 1;
 
         // if there is a null sequence, return {0, 0}
         if (rows == 1 || cols == 1)
             return new int[]{0, 0};
 
-        int maxNumPoints = Integer.MIN_VALUE;
+        int maxNumPoints = 0;
 
         int[][] matrix = new int[rows][cols];
-        Map<Integer, Integer> pairs = new HashMap<>();
+
+        int mapSize = rows /2;
+        if(cols < rows)
+            mapSize = cols/2;
+
+        Map<Integer, Integer> pairs = new HashMap<>(mapSize);
         pairs.put(0, 0);
-
-        /**
-        for (int i = 0; i < rows; i++)
-            matrix[i][0] = 0;
-
-        for (int i = 0; i < cols; i++)
-            matrix[0][i] = 0;
-        */
 
         for (int i = 1; i < rows; i++) {
             for (int j = 1; j < cols; j++) {
-                Lemming l1 = firstSeq.get(j - 1);
-                Lemming l2 = secondSeq.get(i - 1);
+                Lemming l1 = firstSeqTmp.get(j - 1);
+                Lemming l2 = secondSeqTmp.get(i - 1);
 
                 int currentNumberPairs = 0;
 
@@ -51,7 +52,7 @@ public class LemmingsEvolved {
                     currentNumberPairs = pairs.get(matrix[i][j - 1]);
                 }
 
-                if (maxNumPoints <= matrix[i][j])
+                if (maxNumPoints < matrix[i][j])
                     maxNumPoints = Math.max(matrix[i][j], maxNumPoints); // updates max points
 
                 int current = pairs.getOrDefault(matrix[i][j], 0);
@@ -60,6 +61,7 @@ public class LemmingsEvolved {
             }
         }
 
-        return new int[]{maxNumPoints, pairs.get(maxNumPoints)};
+        return new int[]{maxNumPoints, pairs.getOrDefault(maxNumPoints, 0)};
     }
+
 }
