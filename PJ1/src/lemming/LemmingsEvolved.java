@@ -18,18 +18,19 @@ public class LemmingsEvolved {
         if (rows == 1 || cols == 1)
             return new int[]{0, 0};
 
-        int minNumPairs = Integer.MAX_VALUE;
         int maxNumPoints = Integer.MIN_VALUE;
 
         int[][] matrix = new int[rows][cols];
         Map<Integer, Integer> pairs = new HashMap<>();
         pairs.put(0, 0);
 
+        /**
         for (int i = 0; i < rows; i++)
             matrix[i][0] = 0;
 
         for (int i = 0; i < cols; i++)
             matrix[0][i] = 0;
+        */
 
         for (int i = 1; i < rows; i++) {
             for (int j = 1; j < cols; j++) {
@@ -59,7 +60,6 @@ public class LemmingsEvolved {
             }
         }
 
-        minNumPairs = pairs.get(maxNumPoints);
-        return new int[]{maxNumPoints, minNumPairs};
+        return new int[]{maxNumPoints, pairs.get(maxNumPoints)};
     }
 }
