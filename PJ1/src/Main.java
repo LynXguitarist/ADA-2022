@@ -19,29 +19,29 @@ public class Main {
 
             // 1st Sequence
             int N1 = Integer.parseInt(in.readLine()); // Number of lemmings in the first sequence
-            List<Lemming> firstSeq = new LinkedList<>();
+            Lemming[] firstSeq = new Lemming[N1];
             for(int j = 0; j < N1; j++){
                 String lemmingInfo = in.readLine();
 
                 char tribe = lemmingInfo.charAt(0); // tribe
                 int power = Integer.parseInt(lemmingInfo.substring(2)); // power value
 
-                firstSeq.add(new Lemming(tribe, power));
+                firstSeq[j] = new Lemming(tribe, power);
             }
 
             // 2nd Sequence
             int N2 = Integer.parseInt(in.readLine()); // Number of lemmings in the first sequence
-            List<Lemming> secondSeq = new LinkedList<>();
+            Lemming[] secondSeq = new Lemming[N2];
             for(int j = 0; j < N2; j++){
                 String lemmingInfo = in.readLine();
 
                 char tribe = lemmingInfo.charAt(0); // tribe
                 int power = Integer.parseInt(lemmingInfo.substring(2)); // power value
 
-                secondSeq.add(new Lemming(tribe, power));
+                secondSeq[j] = new Lemming(tribe, power);
             }
             // processes the algorithm
-            int[] output = lms.processGame(firstSeq, secondSeq, N1, N2);
+            long[] output = lms.processGame(firstSeq, secondSeq, N1, N2);
 
             System.out.println(output[0] + " " + output[1]);
         }
