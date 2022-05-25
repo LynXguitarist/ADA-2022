@@ -12,10 +12,23 @@ public class WarriorGame {
         this.numberOfChallenges = C;
     }
 
+    /**
+     * adds an edge to the graph
+     * @param c1
+     * @param c2
+     * @param v
+     */
     public void addEdge(int c1, int c2, int v) {
         graph[c2].add(new Edge(c1, v));
     }
 
+    /**
+     * method that returns the final output to the problem
+     * @param s - node that initializes the game
+     * @param w - final node
+     * @param initialEnergy - energy that the player starts with
+     * @return
+     */
     public long processGame(int s, int w, int initialEnergy) {
         long resultEnergy = bellmanFord(s, w, graph.length, initialEnergy);
 
@@ -27,6 +40,15 @@ public class WarriorGame {
         return Math.max(finalEnergy, 0);
     }
 
+    /**
+     * bellmanFord algorithm
+     *
+     * @param initialNode - node that initializes the game
+     * @param wizard - final node
+     * @param size - size of the graph -> numNodes
+     * @param initialEnergy - energy that the player starts with
+     * @return
+     */
     private long bellmanFord(int initialNode, int wizard, int size, int initialEnergy){
         long[] length = new long[size];
         int[] via = new int[size];
@@ -53,6 +75,12 @@ public class WarriorGame {
             return length[initialNode];
     }
 
+    /**
+     * update lengths, cont of the bellmanFord alg.
+     * @param len - array with points per node
+     * @param via - array with the node connecting to that node
+     * @return
+     */
     private boolean updateLengths(long[] len, int[] via) {
         boolean changes = false;
 
@@ -76,6 +104,10 @@ public class WarriorGame {
 
     //----------------------Private methods--------------------------//
 
+    /**
+     * creates the graph
+     * @param length
+     */
     @SuppressWarnings("unchecked")
     private void createDT(int length) {
         this.graph = new List[length];
